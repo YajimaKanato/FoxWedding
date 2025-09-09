@@ -6,9 +6,13 @@ public class Fox : WeddingBase
 {
     [SerializeField] Sprite _humanSprite;
     [SerializeField] Sprite _foxSprite;
+    [SerializeField] Animator _animator;
+    [SerializeField] int _willowispRate = 10;
 
     SpriteRenderer _spriteRenderer;
     WeddingManager _weddingManager;
+
+    float _rand;
 
     private void Start()
     {
@@ -19,6 +23,11 @@ public class Fox : WeddingBase
     private void Update()
     {
         //ChangeSprite();
+        _rand = Random.Range(0, 100);
+        if (0 <= _rand && _rand < _willowispRate)
+        {
+            //_animator.Play("");
+        }
     }
 
     void FixedUpdate()
