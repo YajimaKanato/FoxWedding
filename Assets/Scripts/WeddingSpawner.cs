@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class WeddingSpawner : MonoBehaviour
+public class WeddingSpawner : ObjectPoolAndSpawn
 {
     [System.Serializable]
     class WeddingData
@@ -55,6 +55,7 @@ public class WeddingSpawner : MonoBehaviour
     /// </summary>
     void Spawner()
     {
+        _currentWeight = 0;
         _randWeight = Random.Range(0, _maxWeight);
         foreach (var weight in _weddingList)
         {
@@ -63,7 +64,7 @@ public class WeddingSpawner : MonoBehaviour
             {
                 int y = Random.Range(_posMinY, _posMaxY);
                 int x = Random.Range(0, 2);
-                Instantiate(weight.Prefab, new Vector3(_posX[x], y), Quaternion.identity);
+                Spawn(weight.Prefab, new Vector3(_posX[x], y), Quaternion.identity);
                 break;
             }
         }

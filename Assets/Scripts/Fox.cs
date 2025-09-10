@@ -1,44 +1,40 @@
 using UnityEngine;
 using Wedding;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class Fox : WeddingBase
+public class Fox : MonoBehaviour
 {
     [SerializeField] Sprite _humanSprite;
     [SerializeField] Sprite _foxSprite;
-    [SerializeField] Animator _animator;
+    [SerializeField] GameObject _exitObj;
+    [SerializeField] Animator _willowispAnimator;
     [SerializeField] int _willowispRate = 10;
 
     SpriteRenderer _spriteRenderer;
-    WeddingManager _weddingManager;
+    WeatherManager _weddingManager;
 
     float _rand;
 
     private void Start()
     {
-        base.SetUp();
         SetUp();
     }
 
     private void Update()
     {
-        //ChangeSprite();
+        ChangeSprite();
         _rand = Random.Range(0, 100);
         if (0 <= _rand && _rand < _willowispRate)
         {
-            //_animator.Play("");
+            //_willowispAnimator.Play("");
         }
     }
 
-    void FixedUpdate()
-    {
-        base.SetVelocity();
-    }
-
-    protected override void SetUp()
+    void SetUp()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _weddingManager = FindFirstObjectByType<WeddingManager>();
+        //_spriteRenderer.sprite= _humanSprite;
+        _spriteRenderer.color = Color.red;
+        _weddingManager = FindFirstObjectByType<WeatherManager>();
     }
 
     /// <summary>
@@ -49,11 +45,23 @@ public class Fox : WeddingBase
         switch (_weddingManager.WeddingState)
         {
             case WeddingWeather.SunShower:
-                _spriteRenderer.sprite = _humanSprite;
+                //êlä‘Ç…âªÇØÇÈ
+                //_spriteRenderer.sprite = _humanSprite;
+                _spriteRenderer.color = Color.red;
                 break;
             case WeddingWeather.Sunny:
-                _spriteRenderer.sprite = _foxSprite;
+                //åœÇ…Ç»ÇÈ
+                //_spriteRenderer.sprite = _foxSprite;
+                _spriteRenderer.color = Color.yellow;
                 break;
         }
+    }
+
+    /// <summary>
+    /// è¡Ç¶ÇÈéûÇ…åƒÇ—èoÇ≥ÇÍÇÈä÷êî
+    /// </summary>
+    public void SpawnExitObj()
+    {
+        GameObject.FindWithTag(GameManager.ExitObjectSpawnerName).GetComponent<ObjectPoolAndSpawn>().Spawn(_exitObj, transform.position, Quaternion.identity);
     }
 }
