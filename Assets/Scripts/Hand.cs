@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Hand : MonoBehaviour
@@ -27,10 +28,17 @@ public class Hand : MonoBehaviour
         {
             _ray2d = Camera.main.ScreenPointToRay(Input.mousePosition);
             _hit = Physics2D.Raycast(_ray2d.origin, _ray2d.direction);
-            if (_hit)
+            if (_hit && _hit.collider.tag == GameManager.FriedTofuName)
             {
-                //‚ ‚Æ‚Åƒv[ƒ‹‚É•ÏX
-                Destroy(_hit.collider.gameObject);
+                _hit.collider.transform.SetParent(this.transform);
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (transform.childCount > 0)
+            {
+                transform.GetChild(0).SetParent(null);
             }
         }
     }

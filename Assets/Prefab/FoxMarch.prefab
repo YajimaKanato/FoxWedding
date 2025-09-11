@@ -322,8 +322,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5892835855996917347}
   - component: {fileID: -8612702488713410226}
-  - component: {fileID: -1625381868377842167}
   - component: {fileID: -1886863633603691380}
+  - component: {fileID: -1625381868377842167}
+  - component: {fileID: 4439573858605403517}
   m_Layer: 0
   m_Name: FoxMarch
   m_TagString: Untagged
@@ -375,20 +376,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-1625381868377842167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7924220430081092719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6b2342926905f469b18049c63ba873, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxSpeed: 2
-  _minSpeed: 0.5
 --- !u!61 &-1886863633603691380
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -435,3 +422,29 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &-1625381868377842167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924220430081092719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6b2342926905f469b18049c63ba873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxSpeed: 2
+  _minSpeed: 0.5
+--- !u!114 &4439573858605403517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924220430081092719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c642e69b238e64b960ea42f7536446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

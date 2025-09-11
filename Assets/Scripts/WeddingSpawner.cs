@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class WeddingSpawner : ObjectPoolAndSpawn
+[RequireComponent(typeof(ObjectPoolAndSpawn))]
+public class WeddingSpawner : MonoBehaviour
 {
     [System.Serializable]
     class WeddingData
@@ -17,6 +18,8 @@ public class WeddingSpawner : ObjectPoolAndSpawn
     [SerializeField] int _posMinY;
     [SerializeField] int[] _posX;
     [SerializeField] float _spawnInterval = 0.5f;
+
+    ObjectPoolAndSpawn _pool;
 
     float _delta;
     float _maxWeight;
@@ -44,6 +47,8 @@ public class WeddingSpawner : ObjectPoolAndSpawn
     /// </summary>
     void SetUp()
     {
+        _pool = GetComponent<ObjectPoolAndSpawn>();
+
         foreach (var weight in _weddingList)
         {
             _maxWeight += weight.Rate;
@@ -64,7 +69,7 @@ public class WeddingSpawner : ObjectPoolAndSpawn
             {
                 int y = Random.Range(_posMinY, _posMaxY);
                 int x = Random.Range(0, 2);
-                Spawn(weight.Prefab, new Vector3(_posX[x], y), Quaternion.identity);
+                _pool.Spawn(weight.Prefab, new Vector3(_posX[x], y), Quaternion.identity);
                 break;
             }
         }

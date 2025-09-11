@@ -3,13 +3,14 @@ using UnityEngine;
 /// <summary>
 /// çsêiÇÃêeÇ…ÇÃÇπÇÈ
 /// </summary>
-[RequireComponent(typeof(Rigidbody2D))]
-public class March : ObjectActionForPool
+[RequireComponent(typeof(Rigidbody2D), typeof(ObjectActionForPool))]
+public class March : MonoBehaviour
 {
     [SerializeField] float _maxSpeed = 2f;
     [SerializeField] float _minSpeed = 0.5f;
 
     Rigidbody2D _rb2d;
+    ObjectActionForPool _objAct;
 
     Vector3 _direction;
 
@@ -27,6 +28,7 @@ public class March : ObjectActionForPool
     /// </summary>
     void SetUp()
     {
+        _objAct = GetComponent<ObjectActionForPool>();
         _rb2d = GetComponent<Rigidbody2D>();
         _rb2d.gravityScale = 0;
         _rb2d.freezeRotation = true;
@@ -44,7 +46,7 @@ public class March : ObjectActionForPool
     {
         if (collision.tag == GameManager.DestroyObjName)
         {
-            ReleaseToPool();
+            _objAct.ReleaseToPool();
         }
     }
 }
