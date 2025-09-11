@@ -1,9 +1,9 @@
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
+    [SerializeField] FriedTofuGenerator _gene;
+
     Ray _ray2d;
     RaycastHit2D _hit;
     /// <summary>マウスの座標</summary>
@@ -28,9 +28,13 @@ public class Hand : MonoBehaviour
         {
             _ray2d = Camera.main.ScreenPointToRay(Input.mousePosition);
             _hit = Physics2D.Raycast(_ray2d.origin, _ray2d.direction);
-            if (_hit && _hit.collider.tag == GameManager.FriedTofuName)
+            if (_hit)
             {
-                _hit.collider.transform.SetParent(this.transform);
+                Debug.Log(_hit.collider.name);
+                if (_hit.collider.tag == GameManager.FriedTofuName)
+                {
+                    _hit.collider.transform.SetParent(this.transform);
+                }
             }
         }
 
@@ -38,7 +42,7 @@ public class Hand : MonoBehaviour
         {
             if (transform.childCount > 0)
             {
-                transform.GetChild(0).SetParent(null);
+                Destroy(transform.GetChild(0).gameObject);
             }
         }
     }
