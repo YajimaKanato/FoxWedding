@@ -2,6 +2,14 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
+    public enum HandState
+    {
+        Catch,
+        Release
+    }
+    HandState _state = HandState.Release;
+    public HandState State { get { return _state; } }
+
     [SerializeField] FriedTofuGenerator _gene;
 
     Ray _ray2d;
@@ -33,6 +41,7 @@ public class Hand : MonoBehaviour
                 Debug.Log(_hit.collider.name);
                 if (_hit.collider.tag == GameManager.FriedTofuName)
                 {
+                    _state = HandState.Catch;
                     _hit.collider.transform.SetParent(this.transform);
                 }
             }
@@ -40,9 +49,11 @@ public class Hand : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (transform.childCount > 0)
+            if (_state == HandState.Catch)
             {
-                Destroy(transform.GetChild(0).gameObject);
+                _state = HandState.Release;
+                _hit.collider.gameObject.GetComponent<FriedTofu>().UseTofu();
+                _hit.collider.transform.SetParent(null);
             }
         }
     }

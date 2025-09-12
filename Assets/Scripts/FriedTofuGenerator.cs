@@ -7,9 +7,11 @@ public class FriedTofuGenerator : MonoBehaviour
     [SerializeField] GameObject _tofu;
     [SerializeField] List<GameObject> _friedTofuGenePoint;
 
+    ObjectPoolAndSpawn _pool;
+
     private void Start()
     {
-
+        _pool = GetComponent<ObjectPoolAndSpawn>();
     }
 
     /// <summary>
@@ -21,7 +23,7 @@ public class FriedTofuGenerator : MonoBehaviour
         {
             if (tofu.transform.childCount == 0)
             {
-                Instantiate(_tofu, tofu.transform.position, Quaternion.identity).transform.SetParent(tofu.transform);
+                _pool.Spawn(_tofu, tofu.transform.position, Quaternion.identity, tofu.transform);
                 return;
             }
         }

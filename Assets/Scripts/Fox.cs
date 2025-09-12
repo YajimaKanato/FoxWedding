@@ -1,6 +1,7 @@
 using UnityEngine;
 using Wedding;
 
+[RequireComponent(typeof(CapsuleCollider2D))]
 public class Fox : MonoBehaviour
 {
     [SerializeField] Sprite _humanSprite;
@@ -11,6 +12,7 @@ public class Fox : MonoBehaviour
 
     SpriteRenderer _spriteRenderer;
     WeatherManager _weddingManager;
+    CapsuleCollider2D _cc2d;
 
     float _rand;
 
@@ -35,6 +37,12 @@ public class Fox : MonoBehaviour
         //_spriteRenderer.sprite= _humanSprite;
         _spriteRenderer.color = Color.red;
         _weddingManager = FindFirstObjectByType<WeatherManager>();
+        _cc2d = GetComponent<CapsuleCollider2D>();
+        _cc2d.isTrigger = true;
+        if (tag != GameManager.FoxName)
+        {
+            tag = GameManager.FoxName;
+        }
     }
 
     /// <summary>
