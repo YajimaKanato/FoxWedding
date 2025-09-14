@@ -359,10 +359,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5892835855996917347}
-  - component: {fileID: -8612702488713410226}
-  - component: {fileID: -1886863633603691380}
-  - component: {fileID: -1625381868377842167}
-  - component: {fileID: 4439573858605403517}
+  - component: {fileID: -7463525844976436324}
+  - component: {fileID: 909672163305113336}
+  - component: {fileID: 3561352476396289888}
+  - component: {fileID: -6123495653639682079}
   m_Layer: 0
   m_Name: FoxMarch
   m_TagString: Untagged
@@ -387,7 +387,7 @@ Transform:
   - {fileID: 4322540065363427061}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &-8612702488713410226
+--- !u!50 &-7463525844976436324
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -414,8 +414,34 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &-1886863633603691380
-BoxCollider2D:
+--- !u!114 &909672163305113336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924220430081092719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c642e69b238e64b960ea42f7536446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3561352476396289888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924220430081092719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6b2342926905f469b18049c63ba873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxSpeed: 5
+  _minSpeed: 5
+--- !u!70 &-6123495653639682079
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -449,40 +475,5 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   m_Size: {x: 3, y: 1.5}
-  m_EdgeRadius: 0
---- !u!114 &-1625381868377842167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7924220430081092719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6b2342926905f469b18049c63ba873, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxSpeed: 2
-  _minSpeed: 0.5
---- !u!114 &4439573858605403517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7924220430081092719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7c642e69b238e64b960ea42f7536446, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Direction: 1

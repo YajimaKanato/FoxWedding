@@ -9,25 +9,36 @@ public class Fox : MonoBehaviour
     [SerializeField] GameObject _exitObj;
     [SerializeField] Animator _willowispAnimator;
     [SerializeField] int _willowispRate = 10;
+    [SerializeField] int _score = 100;
 
     SpriteRenderer _spriteRenderer;
-    WeatherManager _weddingManager;
+    WeatherManager _weatherManager;
     CapsuleCollider2D _cc2d;
 
     float _rand;
+    bool _exit;
+    static bool _found = false;
+    public static bool Found { get { return _found; } set { _found = value; } }
 
-    private void Start()
+    private void Awake()
     {
         SetUp();
+    }
+    private void OnEnable()
+    {
+        SetDefault();
     }
 
     private void Update()
     {
-        ChangeSprite();
-        _rand = Random.Range(0, 100);
-        if (0 <= _rand && _rand < _willowispRate)
+        if (!_exit)
         {
-            //_willowispAnimator.Play("");
+            ChangeSprite();
+            _rand = Random.Range(0, 100);
+            if (0 <= _rand && _rand < _willowispRate)
+            {
+                //_willowispAnimator.Play("");
+            }
         }
     }
 
@@ -35,22 +46,33 @@ public class Fox : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         //_spriteRenderer.sprite= _humanSprite;
-        _spriteRenderer.color = Color.red;
-        _weddingManager = FindFirstObjectByType<WeatherManager>();
+        _weatherManager = FindFirstObjectByType<WeatherManager>();
         _cc2d = GetComponent<CapsuleCollider2D>();
         _cc2d.isTrigger = true;
-        if (tag != GameManager.FoxName)
+        if (tag != GameManager.FoxTag)
         {
-            tag = GameManager.FoxName;
+            tag = GameManager.FoxTag;
         }
     }
 
+    void SetDefault()
+    {
+        _spriteRenderer.color = Color.red;
+        _exit = false;
+    }
+
     /// <summary>
-    /// 天気によってスプライトを変化させる関数
+    /// 条件によってスプライトを変化させる関数
     /// </summary>
     void ChangeSprite()
     {
-        switch (_weddingManager.WeddingState)
+        if (_found)
+        {
+            _spriteRenderer.color = Color.yellow;
+            return;
+        }
+
+        switch (_weatherManager.WeddingState)
         {
             case WeddingWeather.SunShower:
                 //人間に化ける
@@ -68,8 +90,12 @@ public class Fox : MonoBehaviour
     /// <summary>
     /// 消える時に呼び出される関数
     /// </summary>
-    public void SpawnExitObj()
+    public void OnExit()
     {
-        GameObject.FindWithTag(GameManager.ExitObjectSpawnerName).GetComponent<ObjectPoolAndSpawn>().Spawn(_exitObj, transform.position, Quaternion.identity);
+        //GameObject.FindWithTag(GameManager.ExitObjectSpawnerTag).GetComponent<ObjectPoolAndSpawn>().Spawn(_exitObj, transform.position, Quaternion.identity);
+        Debug.Log("F:Exit");
+        _spriteRenderer.color = Color.clear;
+        _exit = true;
+        ScoreManager.Score = _score;
     }
 }

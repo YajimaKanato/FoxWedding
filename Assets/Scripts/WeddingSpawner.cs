@@ -1,16 +1,23 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(ObjectPoolAndSpawn))]
-public class WeddingSpawner : MonoBehaviour
+public class WeddingSpawner : ObjectBase
 {
     [System.Serializable]
     class WeddingData
     {
+        [SerializeField] WeddingType _type;
         [SerializeField] GameObject _prefab;
         [SerializeField] int _rate;
+        public WeddingType Type { get { return _type; } }
         public GameObject Prefab { get { return _prefab; } }
         public int Rate { get { return _rate; } }
+
+        public enum WeddingType
+        {
+            Fox,
+            Bride
+        }
     }
 
     [SerializeField] List<WeddingData> _weddingList;
@@ -18,13 +25,10 @@ public class WeddingSpawner : MonoBehaviour
     [SerializeField] int _posMinY;
     [SerializeField] int[] _posX;
     [SerializeField] float _spawnInterval = 0.5f;
-
-    ObjectPoolAndSpawn _pool;
+    [SerializeField] ObjectPoolAndSpawn _foxPool, _bridePool;
 
     float _delta;
     float _maxWeight;
-    float _currentWeight;
-    float _randWeight;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,12 +38,28 @@ public class WeddingSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _delta += Time.deltaTime;
-        if (_delta > _spawnInterval)
+        if (_isStart && !_isEnd)
         {
-            _delta = 0;
-            Spawner();
+            if (!_isPause)
+            {
+                _delta += Time.deltaTime;
+                if (_delta > _spawnInterval)
+                {
+                    _delta = 0;
+                    Spawner();
+                }
+            }
         }
+    }
+
+    private void OnEnable()
+    {
+        SetGameFlowFunc();
+    }
+
+    private void OnDisable()
+    {
+        UnsetGameFlowFunc();
     }
 
     /// <summary>
@@ -47,8 +67,6 @@ public class WeddingSpawner : MonoBehaviour
     /// </summary>
     void SetUp()
     {
-        _pool = GetComponent<ObjectPoolAndSpawn>();
-
         foreach (var weight in _weddingList)
         {
             _maxWeight += weight.Rate;
@@ -60,8 +78,8 @@ public class WeddingSpawner : MonoBehaviour
     /// </summary>
     void Spawner()
     {
-        _currentWeight = 0;
-        _randWeight = Random.Range(0, _maxWeight);
+        float _currentWeight = 0;
+        float _randWeight = Random.Range(0, _maxWeight);
         foreach (var weight in _weddingList)
         {
             _currentWeight += weight.Rate;
@@ -69,8 +87,16 @@ public class WeddingSpawner : MonoBehaviour
             {
                 int y = Random.Range(_posMinY, _posMaxY);
                 int x = Random.Range(0, 2);
-                _pool.Spawn(weight.Prefab, new Vector3(_posX[x], y), Quaternion.identity);
-                break;
+                switch (weight.Type)
+                {
+                    case WeddingData.WeddingType.Bride:
+                        _bridePool.Spawn(weight.Prefab, new Vector3(_posX[x], y), Quaternion.identity);
+                        break;
+                    case WeddingData.WeddingType.Fox:
+                        _foxPool.Spawn(weight.Prefab, new Vector3(_posX[x], y), Quaternion.identity);
+                        break;
+                }
+                return;
             }
         }
     }

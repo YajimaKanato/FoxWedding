@@ -1,7 +1,7 @@
 using UnityEngine;
 using Wedding;
 
-public class WeatherManager : MonoBehaviour
+public class WeatherManager : ObjectBase
 {
     [SerializeField, Tooltip("天気雨の最大持続時間")] float _maxSunShowerTime = 20;
     [SerializeField, Tooltip("天気雨の最小持続時間")] float _minSunShowerTime = 10;
@@ -22,10 +22,31 @@ public class WeatherManager : MonoBehaviour
     /// <summary>晴れの持続時間</summary>
     float _sunnyTime;
 
+    private void Start()
+    {
+
+    }
+
     // Update is called once per frame
     void Update()
     {
-        WeatherManage();
+        if (_isStart && !_isEnd)
+        {
+            if (!_isPause)
+            {
+                WeatherManage();
+            }
+        }
+    }
+
+    private void OnEnable()
+    {
+        SetGameFlowFunc();
+    }
+
+    private void OnDisable()
+    {
+        UnsetGameFlowFunc();
     }
 
     /// <summary>

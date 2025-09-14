@@ -1,16 +1,17 @@
+using System;
 using UnityEngine;
 
 /// <summary>
 /// çsêiÇÃêeÇ…ÇÃÇπÇÈ
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D), typeof(ObjectActionForPool))]
-public class March : MonoBehaviour
+public class March : ObjectBase
 {
     [SerializeField] float _maxSpeed = 2f;
     [SerializeField] float _minSpeed = 0.5f;
 
     Rigidbody2D _rb2d;
-    ObjectActionForPool _objAct;
+    Action _pauseVel, _resumeVel;
 
     Vector3 _direction;
 
@@ -18,9 +19,36 @@ public class March : MonoBehaviour
     float _speed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         SetUp();
+    }
+
+    private void OnEnable()
+    {
+        SetGameFlowFunc();
+        SetVelocity();
+    }
+
+    private void OnDisable()
+    {
+        UnsetGameFlowFunc();
+    }
+
+    protected override void SetGameFlowFunc()
+    {
+        base.SetGameFlowFunc();
+        _pauseVel = () => _rb2d.linearVelocity = Vector3.zero;
+        _resumeVel = () => _rb2d.linearVelocity = _direction * _speed;
+        GameFlowSign.PauseAct += _pauseVel;
+        GameFlowSign.ResumeAct += _resumeVel;
+    }
+
+    protected override void UnsetGameFlowFunc()
+    {
+        base.UnsetGameFlowFunc();
+        GameFlowSign.PauseAct -= _pauseVel;
+        GameFlowSign.ResumeAct -= _resumeVel;
     }
 
     /// <summary>
@@ -28,25 +56,21 @@ public class March : MonoBehaviour
     /// </summary>
     void SetUp()
     {
-        _objAct = GetComponent<ObjectActionForPool>();
         _rb2d = GetComponent<Rigidbody2D>();
         _rb2d.gravityScale = 0;
         _rb2d.freezeRotation = true;
-        _moveX = Vector3.zero.x - transform.position.x;
-        _direction = new Vector3(_moveX, 0, 0).normalized;
-        _speed = Random.Range(_minSpeed, _maxSpeed);
-        _rb2d.linearVelocity = _direction * _speed;
-        if (tag != GameManager.WeddingName)
+        if (tag != GameManager.WeddingTag)
         {
-            tag = GameManager.WeddingName;
+            tag = GameManager.WeddingTag;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    void SetVelocity()
     {
-        if (collision.tag == GameManager.DestroyObjName)
-        {
-            _objAct.ReleaseToPool();
-        }
+        _speed = UnityEngine.Random.Range(_minSpeed, _maxSpeed);
+        _moveX = 0;
+        _moveX = Vector3.zero.x - transform.position.x;
+        _direction = new Vector3(_moveX, 0, 0).normalized;
+        _rb2d.linearVelocity = _direction * _speed;
     }
 }

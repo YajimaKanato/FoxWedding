@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(ObjectActionForPool))]
 public class FriedTofu : MonoBehaviour
@@ -8,7 +9,8 @@ public class FriedTofu : MonoBehaviour
     Rigidbody2D _rb2d;
     BoxCollider2D _bc2d;
     ObjectActionForPool _pool;
-    GameObject _bride;
+    GameObject _nearestObj;
+    List<GameObject> _objs = new List<GameObject>();
 
     private void Start()
     {
@@ -17,42 +19,76 @@ public class FriedTofu : MonoBehaviour
         _bc2d = GetComponent<BoxCollider2D>();
         _pool = GetComponent<ObjectActionForPool>();
 
-        if (tag != GameManager.FriedTofuName)
+        if (tag != GameManager.FriedTofuTag)
         {
-            tag = GameManager.FriedTofuName;
+            tag = GameManager.FriedTofuTag;
         }
     }
 
+    /// <summary>
+    /// お揚げを使用するときに呼び出す関数
+    /// </summary>
     public void UseTofu()
     {
-        if (_bride)
+        if (_nearestObj)
         {
-            Debug.Log("Use");
+            if (_nearestObj.tag == GameManager.FoxTag)
+            {
+                _nearestObj.GetComponent<Fox>().OnExit();
+                Debug.Log("Used to Fox");
+            }
+            else if (_nearestObj.tag == GameManager.BrideTag)
+            {
+                _nearestObj.GetComponent<Bride>().OnExit();
+                Debug.Log("Used to Bride");
+            }
         }
         else
         {
-
+            Debug.Log("Unused");
         }
 
+        _nearestObj = null;
         _pool.ReleaseToPool();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    /// <summary>
+    /// 一番近いオブジェクトを設定する関数
+    /// </summary>
+    void SetNearest()
     {
-        if (collision.tag == GameManager.FoxName)
+        _nearestObj = null;
+        foreach (GameObject obj in _objs)
         {
-            if (!_bride)
+            if (!_nearestObj)
             {
-                _bride = collision.gameObject;
+                _nearestObj = obj;
             }
+            else
+            {
+                if (Vector3.Distance(_nearestObj.transform.position, transform.position) > Vector3.Distance(obj.transform.position, transform.position))
+                {
+                    _nearestObj = obj;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == GameManager.FoxTag || collision.tag == GameManager.BrideTag)
+        {
+            _objs.Add(collision.gameObject);
+            SetNearest();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (_bride)
+        if (collision.tag == GameManager.FoxTag || collision.tag == GameManager.BrideTag)
         {
-            _bride = null;
+            _objs.Remove(collision.gameObject);
+            SetNearest();
         }
     }
 }
