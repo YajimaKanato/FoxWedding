@@ -143,6 +143,7 @@ MonoBehaviour:
   _exitObj: {fileID: 0}
   _willowispAnimator: {fileID: 0}
   _willowispRate: 10
+  _score: 100
 --- !u!1 &2340390595633727850
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +362,6 @@ GameObject:
   - component: {fileID: 5892835855996917347}
   - component: {fileID: -7463525844976436324}
   - component: {fileID: 909672163305113336}
-  - component: {fileID: 3561352476396289888}
   - component: {fileID: -6123495653639682079}
   m_Layer: 0
   m_Name: FoxMarch
@@ -426,20 +426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c642e69b238e64b960ea42f7536446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3561352476396289888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7924220430081092719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6b2342926905f469b18049c63ba873, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxSpeed: 5
-  _minSpeed: 5
 --- !u!70 &-6123495653639682079
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

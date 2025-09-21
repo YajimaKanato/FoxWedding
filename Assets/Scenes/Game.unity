@@ -1455,7 +1455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1252390465}
-  - component: {fileID: 1252390464}
+  - component: {fileID: 1252390466}
   m_Layer: 0
   m_Name: FoxSpawner
   m_TagString: Untagged
@@ -1463,18 +1463,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1252390464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1252390463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3f47f5af330ddb4394f02ac5b9fa382, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1252390465
 Transform:
   m_ObjectHideFlags: 0
@@ -1490,6 +1478,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1252390466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252390463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f47f5af330ddb4394f02ac5b9fa382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1295510278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,17 +1521,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weddingList:
   - _type: 1
-    _prefab: {fileID: 3058993030646697709, guid: ef9689033b9454245b2625fe1fc24f62, type: 3}
+    _prefab: {fileID: 53430653616590398, guid: c8b69ed21640da247bd0012c9fbeeb13, type: 3}
     _rate: 1
   - _type: 0
-    _prefab: {fileID: 7924220430081092719, guid: 79d358a74c248bb4eae2d1bd1a64874b, type: 3}
+    _prefab: {fileID: 3696734914498381027, guid: d2a22ba49dbc0504c8403d387ae9ed38, type: 3}
     _rate: 1
   _posMaxY: 4
   _posMinY: -2
   _posX: f6ffffff0a000000
   _spawnInterval: 1
-  _foxPool: {fileID: 1252390464}
-  _bridePool: {fileID: 1426846106}
+  _foxPool: {fileID: 1252390466}
+  _bridePool: {fileID: 1426846108}
 --- !u!4 &1295510280
 Transform:
   m_ObjectHideFlags: 0
@@ -1833,7 +1833,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1426846107}
-  - component: {fileID: 1426846106}
+  - component: {fileID: 1426846108}
   m_Layer: 0
   m_Name: BrideSpawner
   m_TagString: Untagged
@@ -1841,18 +1841,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1426846106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426846105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3f47f5af330ddb4394f02ac5b9fa382, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1426846107
 Transform:
   m_ObjectHideFlags: 0
@@ -1868,6 +1856,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1426846108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426846105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f47f5af330ddb4394f02ac5b9fa382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1514479867
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,8 +4,6 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(ObjectActionForPool))]
 public class FriedTofu : MonoBehaviour
 {
-    [SerializeField] float _gravity = 3;
-
     Rigidbody2D _rb2d;
     BoxCollider2D _bc2d;
     ObjectActionForPool _pool;
@@ -32,16 +30,8 @@ public class FriedTofu : MonoBehaviour
     {
         if (_nearestObj)
         {
-            if (_nearestObj.tag == GameManager.FoxTag)
-            {
-                _nearestObj.GetComponent<Fox>().OnExit();
-                Debug.Log("Used to Fox");
-            }
-            else if (_nearestObj.tag == GameManager.BrideTag)
-            {
-                _nearestObj.GetComponent<Bride>().OnExit();
-                Debug.Log("Used to Bride");
-            }
+            _nearestObj.GetComponent<March>().GetFriedTofu();
+            Debug.Log("UseTofu");
         }
         else
         {

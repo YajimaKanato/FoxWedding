@@ -1,28 +1,50 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CapsuleCollider2D))]
-public class Bride : MonoBehaviour
+public class Bride : March
 {
     [SerializeField] int _score = -50;
-    CapsuleCollider2D _cc2d;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    SpriteRenderer _spriteRenderer;
+
+    bool _exit = false;
+    private void Awake()
     {
-        _cc2d = GetComponent<CapsuleCollider2D>();
-        _cc2d.isTrigger = true;
+        SetUp();
+    }
+
+    private void OnEnable()
+    {
+        SetVelocity();
+        SetGameFlowFunc();
+        SetDefault();
+    }
+
+    protected override void SetUp()
+    {
+        base.SetUp();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         if (tag != GameManager.BrideTag)
         {
             tag = GameManager.BrideTag;
         }
     }
 
-    /// <summary>
-    /// 消える時に呼び出される関数
-    /// </summary>
-    public void OnExit()
+    void SetDefault()
     {
-        ScoreManager.Score = _score;
-        Debug.Log("B:Exit");
+        _spriteRenderer.color = Color.red;
+        _exit = false;
+    }
+
+    public override void GetFriedTofu()
+    {
+        //バグったらフラグに変更
+        if (!_exit)
+        {
+            ScoreManager.Score = _score;
+            _spriteRenderer.color = Color.clear;
+            _exit = true;
+            Debug.Log("B:Exit");
+        }
+        gameObject.SetActive(false);
     }
 }

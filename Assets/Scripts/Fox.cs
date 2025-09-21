@@ -1,21 +1,16 @@
+using TMPro;
 using UnityEngine;
 using Wedding;
 
-[RequireComponent(typeof(CapsuleCollider2D))]
-public class Fox : MonoBehaviour
+public class Fox : March
 {
     [SerializeField] Sprite _humanSprite;
     [SerializeField] Sprite _foxSprite;
     [SerializeField] GameObject _exitObj;
-    [SerializeField] Animator _willowispAnimator;
-    [SerializeField] int _willowispRate = 10;
     [SerializeField] int _score = 100;
 
     SpriteRenderer _spriteRenderer;
     WeatherManager _weatherManager;
-    CapsuleCollider2D _cc2d;
-
-    float _rand;
     bool _exit;
     static bool _found = false;
     public static bool Found { get { return _found; } set { _found = value; } }
@@ -27,6 +22,8 @@ public class Fox : MonoBehaviour
     private void OnEnable()
     {
         SetDefault();
+        SetVelocity();
+        SetGameFlowFunc();
     }
 
     private void Update()
@@ -34,21 +31,15 @@ public class Fox : MonoBehaviour
         if (!_exit)
         {
             ChangeSprite();
-            _rand = Random.Range(0, 100);
-            if (0 <= _rand && _rand < _willowispRate)
-            {
-                //_willowispAnimator.Play("");
-            }
         }
     }
 
-    void SetUp()
+    protected override void SetUp()
     {
+        base.SetUp();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         //_spriteRenderer.sprite= _humanSprite;
         _weatherManager = FindFirstObjectByType<WeatherManager>();
-        _cc2d = GetComponent<CapsuleCollider2D>();
-        _cc2d.isTrigger = true;
         if (tag != GameManager.FoxTag)
         {
             tag = GameManager.FoxTag;
@@ -87,15 +78,17 @@ public class Fox : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 消える時に呼び出される関数
-    /// </summary>
-    public void OnExit()
+    public override void GetFriedTofu()
     {
-        //GameObject.FindWithTag(GameManager.ExitObjectSpawnerTag).GetComponent<ObjectPoolAndSpawn>().Spawn(_exitObj, transform.position, Quaternion.identity);
-        Debug.Log("F:Exit");
-        _spriteRenderer.color = Color.clear;
-        _exit = true;
-        ScoreManager.Score = _score;
+        //バグったらフラグに変更
+        if (!_exit)
+        {
+            //GameObject.FindWithTag(GameManager.ExitObjectSpawnerTag).GetComponent<ObjectPoolAndSpawn>().Spawn(_exitObj, transform.position, Quaternion.identity);
+            Debug.Log("F:Exit");
+            _spriteRenderer.color = Color.clear;
+            _exit = true;
+            ScoreManager.Score = _score;
+        }
+        gameObject.SetActive(false);
     }
 }

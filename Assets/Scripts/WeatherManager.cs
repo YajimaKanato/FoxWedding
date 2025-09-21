@@ -46,7 +46,7 @@ public class WeatherManager : ObjectBase
 
     private void OnDisable()
     {
-        UnsetGameFlowFunc();
+        UnSetGameFlowFunc();
     }
 
     /// <summary>

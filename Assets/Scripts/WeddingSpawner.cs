@@ -59,7 +59,7 @@ public class WeddingSpawner : ObjectBase
 
     private void OnDisable()
     {
-        UnsetGameFlowFunc();
+        UnSetGameFlowFunc();
     }
 
     /// <summary>
